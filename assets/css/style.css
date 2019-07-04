@@ -1,0 +1,33 @@
+body, html {
+    height: 100%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .bg-image {
+    background-image: url("../images/body-bg.jpg");
+    /* filter: blur(10px);
+    -webkit-filter: blur(8px); */
+    height: 100%;
+    background-position: center;
+    background-repeat: repeat;
+    z-index: -1;
+  }
+
+
+.card-bg{
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.5);
+}
+
+.img-position{
+  width: 90%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.5);
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
