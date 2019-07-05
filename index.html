@@ -20,14 +20,15 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body class="bg-image">
+
     <div class="container">
-      <div class="card text-center card-bg">
-        <div class="card-header bg-info border">
+      <div class="card text-center card-bg border round">
+        <div class="card-header bg-dark border">
           <p class="h2 text-white">Word Guess Game</p>
         </div>
         <div class="card-body ">
-          <h3 class="card-title  bg-info text-white p-4 rounded shadow-lg">
-            Success message goes here...
+          <h3 id="message" class="card-title  bg-info text-white p-4 rounded shadow-lg">
+
           </h3>
         </div>
         <div class="row">
@@ -43,43 +44,43 @@
                 </div>
               </div>
               <div class="col-md-6 col-sm-6">
-                <div class="card text-white card-bg m-3">
-                  <div class="card-header">
-                    <p class="h4 bg-success p-3">Wins</p>
+                <div class="card text-white border-success round card-bg m-3">
+                  <div class="card-header bg-success">
+                    <p class="h4 bg-success">Wins</p>
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title bg-success p-3">2</h5>
+                    <h5 class="card-title bg-success p-3" id="wins"></h5>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-4 col-sm-4">
-            <div class="card text-white card-bg m-3">
-              <div class="card-header">
-                <p class="h4 bg-primary p-3">Guesses</p>
+            <div class="card text-white border-primary round card-bg m-3">
+              <div class="card-header bg-primary">
+                <p class="h4 bg-primary">Guesses</p>
               </div>
               <div class="card-body">
-                <h5 class="card-title bg-primary p-3">3</h5>
+                <h5 class="card-title bg-primary p-3" id="guesses">3</h5>
               </div>
             </div>
           </div>
         </div>
         <div class="row">
             <div class="col-md-4 col-sm-4">
-                <div class="card text-white card-bg m-3">
-                  <div class="card-header">
-                    <p class="h4 bg-danger p-3">Guessed letters</p>
+                <div class="card text-white border-danger rounded card-bg m-3">
+                  <div class="card-header bg-danger">
+                    <p class="h4 bg-danger">Guessed letters</p>
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title bg-danger p-3">a, d, r </h5>
+                    <h5 class="card-title bg-danger p-3" id="guessed-letters"> </h5>
                   </div>
                 </div>
               </div>
 
-            <div class="col-md-8 col-sm-8 card-bg text-center text-white p-4">
-                <p class="h3 bg-dark p-3 rounded">Current Word:</p>
-                <p class="h3 bg-dark p-3 rounded mt-3">__ __ __ __ __ _</p>
+            <div class="col-md-7 col-sm-7 card-bg text-center text-white p-4 m-2">
+                <p class="h3 bg-dark p-3 rounded" id="">Current Word:</p>
+                <p class="h3 bg-dark p-3 rounded mt-3" id="current-word"></p>
             </div>
           </div>
       </div>

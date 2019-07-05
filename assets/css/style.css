@@ -8,18 +8,16 @@ body, html {
 
   .bg-image {
     background-image: url("../images/body-bg.jpg");
-    /* filter: blur(10px);
-    -webkit-filter: blur(8px); */
-    height: 100%;
-    background-position: center;
+    background-size: cover;
     background-repeat: repeat;
+    background-position: 50% 50%;
     z-index: -1;
   }
 
 
 .card-bg{
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.788);
 }
 
 .img-position{
