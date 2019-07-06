@@ -17,7 +17,7 @@ const singers = [
     hint: "English rock band formed in Abingdon-on-Thames",
     song: {
       songName: "Idioteque",
-      songUrl: "",
+      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
       imageUrl: "assets/images/radiohead.jpg",
     },
   },
@@ -27,7 +27,7 @@ const singers = [
     hint: "An American musician, singer, songwriter, and actress",
     song: {
       songName: "Can’t Cry Anymore",
-      songUrl: "",
+      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
       imageUrl: "assets/images/sheryl.jpg",
     },
   },
@@ -38,7 +38,7 @@ const singers = [
     hint: "A Puerto Rican singer, actor and author.",
     song: {
       songName: "Livin' la Vida Loca",
-      songUrl: "",
+      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
       imageUrl: "assets/images/ricky-martin.jpg",
     },
   },
@@ -49,7 +49,7 @@ const singers = [
       "She appeared in stage productions and television series, before signing with Jive Records in 1997",
     song: {
       songName: "Baby One More Time",
-      songUrl: "",
+      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
       imageUrl: "assets/images/britney.jpg",
     },
   },
@@ -71,7 +71,7 @@ const singers = [
       "She is noted for her five-octave vocal range, melismatic singing style, and signature use of the whistle register",
     song: {
       songName: "Fantasy",
-      songUrl: "",
+      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
       imageUrl: "assets/images/mariah.png",
     },
   },
@@ -82,7 +82,7 @@ const singers = [
     hint: "A Canadian singer, songwriter and actress.",
     song: {
       songName: "You’re Still the One",
-      songUrl: "",
+      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
       imageUrl: "assets/images/shania.jpg",
     },
   },
@@ -94,7 +94,7 @@ const singers = [
       "He rose to fame in the early 1990s with his experimental and lo-fi style.",
     song: {
       songName: "Pay No Mind (Snoozer)",
-      songUrl: "",
+      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
       imageUrl: "assets/images/beck.jpeg",
     },
   },
@@ -104,25 +104,16 @@ let rightAnswers = [];
 let wrongAnswers = [];
 let underscores = [];
 
-// select random singer name
-let randomIndex = Math.floor(Math.random() * singers.length);
-console.log(randomIndex);
-
-let singerSelected = singers[randomIndex].name.toUpperCase();
-
 let score = 0;
 let remainingGuesses = 10;
 
-console.log(singerSelected);
-
-let startGame = () => {
-  singerSelected;
-  score = 0;
-};
+let randomIndex = '';
+let singerSelected = '';
+let audio = '';
 
 // generate underscores based on length of singer's name
-
 let generateUnderscores = () => {
+  underscores = [];
   for (let i = 0; i < singerSelected.length; i++) {
     if (singerSelected.charAt(i)) {
       underscores.push("_");
@@ -131,20 +122,45 @@ let generateUnderscores = () => {
   return underscores;
 };
 
-document.getElementById("current-word").innerHTML = generateUnderscores().join(
-  " "
-);
+let startGame = () => {
+  singerSelected;
+  remainingGuesses = 10;
+  wrongAnswers = [];
 
-document.getElementById("message").innerHTML =
-  "<h3>" + "Press any key to continue." + "</h4>";
+  // select random singer name
+  randomIndex = Math.floor(Math.random() * singers.length);
+  console.log(randomIndex);
+  singerSelected = singers[randomIndex].name.toUpperCase();
+  console.log(singerSelected);
 
+  document.getElementById("current-word").innerHTML = generateUnderscores().join(" ");
+  document.getElementById("message").innerHTML = "<h3>" + "Guess a character to start." + "</h4>";
+
+  document.getElementById("remaining-guesses").textContent = remainingGuesses;
+  document.getElementById("guessed-letters").textContent = wrongAnswers;
+  document.getElementById("singer-image").setAttribute("src", 'assets/images/initial-img.jpeg');
+
+  audioPlayPause();
+
+};
+
+//key press event
 document.addEventListener("keypress", event => {
+  if(underscores.join("") == singerSelected){
+    return false;
+  }
+
   document.getElementById("message").innerHTML =
     "<h3>" + "Hint: " + singers[randomIndex].hint + "</h4>";
 
   let keyChar = String.fromCharCode(event.keyCode).toUpperCase();
 
   console.log(singerSelected.indexOf(keyChar) + " " + keyChar);
+
+  if (remainingGuesses <= 0) {
+    document.getElementById("message").innerHTML = "<h3>" + "Sorry not a right guess!!!" + "</h4> <a href='javascript:;' onclick='startGame()'>Play Again</a>";
+    return false;
+  }
 
   if (singerSelected.indexOf(keyChar) >= 0) {
     rightAnswers.splice(keyChar);
@@ -162,39 +178,42 @@ document.addEventListener("keypress", event => {
         "</h4>" +
         "<h5>" +
         singers[randomIndex].message +
-        "</h5> <a href='javascript:;' onclick='document.location=\"\"'>Play Again</a>";
+        "</h5> <a href='javascript:;' onclick='startGame()'>Play Again</a>";
 
       document
         .getElementById("singer-image")
         .setAttribute("src", singers[randomIndex].song.imageUrl);
 
-      var audio = new Audio(singers[randomIndex].song.songUrl);
       if(singers[randomIndex].song.songUrl != ''){
         audio.play();
       }else{
         console.log('audio file not found.')
       }
     }
-  } else {
-    if (wrongAnswers.indexOf(keyChar) < 0) {
+  } else if (wrongAnswers.indexOf(keyChar) < 0) {
       wrongAnswers.push(keyChar);
       document.getElementById(
         "remaining-guesses"
       ).textContent = --remainingGuesses;
       document.getElementById("guessed-letters").innerHTML = wrongAnswers;
-    }
-  }
-
-  if (remainingGuesses == 0) {
-    document.getElementById("message").innerHTML =
-      "<h3>" + "Sorry not a right guess!!!" + "</h4> <a href='javascript:;' onclick='document.location=\"\"'>Play Again</a>";
   }
 });
 
-var updateUnderscores = function(keyChar) {
+let updateUnderscores = function(keyChar) {
   for (var i = 0; i < singerSelected.length; i++) {
     if (keyChar == singerSelected.charAt(i)) {
       underscores[i] = keyChar;
     }
   }
 };
+
+let audioPlayPause = function(){
+  if(audio instanceof Audio){
+    audio.pause();
+    audio = new Audio(singers[randomIndex].song.songUrl);
+  }else{
+    audio = new Audio(singers[randomIndex].song.songUrl);
+  }
+}
+
+startGame();
