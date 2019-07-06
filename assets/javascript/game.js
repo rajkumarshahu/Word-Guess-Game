@@ -16,8 +16,8 @@ const singers = [
       "Radiohead are an English rock band formed in Abingdon-on-Thames in 1985.",
     hint: "English rock band formed in Abingdon-on-Thames",
     song: {
-      songName: "Idioteque",
-      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
+      songName: "Maquiladora",
+      songUrl: "assets/audio/Radiohead-I-Am-A-Wicked-Child.mp3",
       imageUrl: "assets/images/radiohead.jpg",
     },
   },
@@ -26,8 +26,8 @@ const singers = [
     message: "I am Sheryl Suzanne Crow.",
     hint: "An American musician, singer, songwriter, and actress",
     song: {
-      songName: "Can’t Cry Anymore",
-      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
+      songName: "It don't hurt.",
+      songUrl: "assets/audio/Sheryl-Crow-It-Dont-Hurt.mp3",
       imageUrl: "assets/images/sheryl.jpg",
     },
   },
@@ -38,7 +38,7 @@ const singers = [
     hint: "A Puerto Rican singer, actor and author.",
     song: {
       songName: "Livin' la Vida Loca",
-      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
+      songUrl: "assets/audio/DJ-Cardio-Livin-La-Vida-Loca-made-famous-by-Ricky-Martin.mp3",
       imageUrl: "assets/images/ricky-martin.jpg",
     },
   },
@@ -49,7 +49,7 @@ const singers = [
       "She appeared in stage productions and television series, before signing with Jive Records in 1997",
     song: {
       songName: "Baby One More Time",
-      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
+      songUrl: "assets/audio/Britney-Spears-Baby-One-More-Time.mp3",
       imageUrl: "assets/images/britney.jpg",
     },
   },
@@ -60,7 +60,7 @@ const singers = [
     hint: "An English rock band formed in Manchester",
     song: {
       songName: "Wonderwall",
-      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
+      songUrl: "assets/audio/oasis-wonderwall.mp3",
       imageUrl: "assets/images/oasis.jpg",
     },
   },
@@ -71,7 +71,7 @@ const singers = [
       "She is noted for her five-octave vocal range, melismatic singing style, and signature use of the whistle register",
     song: {
       songName: "Fantasy",
-      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
+      songUrl: "assets/audio/fantasy.mp3",
       imageUrl: "assets/images/mariah.png",
     },
   },
@@ -82,7 +82,7 @@ const singers = [
     hint: "A Canadian singer, songwriter and actress.",
     song: {
       songName: "You’re Still the One",
-      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
+      songUrl: "assets/audio/youre-still-the-one.mp3",
       imageUrl: "assets/images/shania.jpg",
     },
   },
@@ -93,8 +93,8 @@ const singers = [
     hint:
       "He rose to fame in the early 1990s with his experimental and lo-fi style.",
     song: {
-      songName: "Pay No Mind (Snoozer)",
-      songUrl: "assets/audio/Nirvana-Come-As-You-Are.mp3",
+      songName: "Loser",
+      songUrl: "assets/audio/loser.mp3",
       imageUrl: "assets/images/beck.jpeg",
     },
   },
@@ -199,7 +199,7 @@ document.addEventListener("keypress", event => {
   }
 });
 
-let updateUnderscores = function(keyChar) {
+let updateUnderscores = keyChar => {
   for (var i = 0; i < singerSelected.length; i++) {
     if (keyChar == singerSelected.charAt(i)) {
       underscores[i] = keyChar;
@@ -207,7 +207,7 @@ let updateUnderscores = function(keyChar) {
   }
 };
 
-let audioPlayPause = function(){
+let audioPlayPause = () => {
   if(audio instanceof Audio){
     audio.pause();
     audio = new Audio(singers[randomIndex].song.songUrl);
