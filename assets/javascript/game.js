@@ -38,7 +38,8 @@ const singers = [
     hint: "A Puerto Rican singer, actor and author.",
     song: {
       songName: "Livin' la Vida Loca",
-      songUrl: "assets/audio/DJ-Cardio-Livin-La-Vida-Loca-made-famous-by-Ricky-Martin.mp3",
+      songUrl:
+        "assets/audio/DJ-Cardio-Livin-La-Vida-Loca-made-famous-by-Ricky-Martin.mp3",
       imageUrl: "assets/images/ricky-martin.jpg",
     },
   },
@@ -105,9 +106,9 @@ let wrongAnswers = [];
 let underscores = [];
 let score = 0;
 let remainingGuesses = 10;
-let randomIndex = '';
-let singerSelected = '';
-let audio = '';
+let randomIndex = "";
+let singerSelected = "";
+let audio = "";
 
 // generate underscores based on length of singer's name
 let generateUnderscores = () => {
@@ -131,21 +132,25 @@ let startGame = () => {
   randomIndex = Math.floor(Math.random() * singers.length);
   singerSelected = singers[randomIndex].name.toUpperCase();
 
-  document.getElementById("current-word").innerHTML = generateUnderscores().join(" ");
-  document.getElementById("message").innerHTML = "<h3>" + "Type any character to get a hint and start." + "</h4>";
+  document.getElementById(
+    "current-word"
+  ).innerHTML = generateUnderscores().join(" ");
+  document.getElementById("message").innerHTML =
+    "<h3>" + "Type any character to get a hint and start." + "</h4>";
 
   document.getElementById("remaining-guesses").textContent = remainingGuesses;
   document.getElementById("guessed-letters").textContent = wrongAnswers;
-  document.getElementById("singer-image").setAttribute("src", 'assets/images/initial-img.jpeg');
+  document
+    .getElementById("singer-image")
+    .setAttribute("src", "assets/images/initial-img.jpeg");
   document.getElementById("song-playing").innerHTML = "";
 
   audioPlayPause();
-
 };
 
 //key press event
 document.addEventListener("keypress", event => {
-  if(underscores.join("") == singerSelected){
+  if (underscores.join("") == singerSelected) {
     return false;
   }
 
@@ -155,7 +160,10 @@ document.addEventListener("keypress", event => {
   let keyChar = String.fromCharCode(event.keyCode).toUpperCase();
 
   if (remainingGuesses <= 0) {
-    document.getElementById("message").innerHTML = "<h3>" + "Sorry not a right guess!!!" + "</h4> <a href='javascript:;' onclick='startGame()'>Play Again</a>";
+    document.getElementById("message").innerHTML =
+      "<h3>" +
+      "Sorry not a right guess!!!" +
+      "</h4> <a href='javascript:;' onclick='startGame()'>Play Again</a>";
     return false;
   }
 
@@ -181,20 +189,25 @@ document.addEventListener("keypress", event => {
         .getElementById("singer-image")
         .setAttribute("src", singers[randomIndex].song.imageUrl);
 
-        document.getElementById("song-playing").innerHTML = "Now Playing " + singers[randomIndex].song.songName + " by "+ singers[randomIndex].name;
+      document.getElementById("song-playing").innerHTML =
+        "Now Playing " +
+        singers[randomIndex].song.songName +
+        " by " +
+        singers[randomIndex].name;
 
-      if(singers[randomIndex].song.songUrl != ''){
+      if (singers[randomIndex].song.songUrl != "") {
         audio.play();
-      }else{
-        document.getElementById("song-playing").innerHTML = "Audio file not found!!!"
+      } else {
+        document.getElementById("song-playing").innerHTML =
+          "Audio file not found!!!";
       }
     }
   } else if (wrongAnswers.indexOf(keyChar) < 0) {
-      wrongAnswers.push(keyChar);
-      document.getElementById(
-        "remaining-guesses"
-      ).textContent = remainingGuesses--;
-      document.getElementById("guessed-letters").innerHTML = wrongAnswers;
+    wrongAnswers.push(keyChar);
+    document.getElementById(
+      "remaining-guesses"
+    ).textContent = remainingGuesses--;
+    document.getElementById("guessed-letters").innerHTML = wrongAnswers;
   }
 });
 
@@ -208,12 +221,12 @@ let updateUnderscores = keyChar => {
 };
 
 let audioPlayPause = () => {
-  if(audio instanceof Audio){
+  if (audio instanceof Audio) {
     audio.pause();
     audio = new Audio(singers[randomIndex].song.songUrl);
-  }else{
+  } else {
     audio = new Audio(singers[randomIndex].song.songUrl);
   }
-}
+};
 
 startGame();
