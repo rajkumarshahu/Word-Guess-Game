@@ -28,7 +28,7 @@ const singers = [
     song: {
       songName: "It don't hurt.",
       songUrl: "assets/audio/Sheryl-Crow-It-Dont-Hurt.mp3",
-      imageUrl: "assets/images/sheryl.jpg",
+      imageUrl: "assets/images/sheryl.jpeg",
     },
   },
   {
@@ -72,7 +72,7 @@ const singers = [
     song: {
       songName: "Fantasy",
       songUrl: "assets/audio/fantasy.mp3",
-      imageUrl: "assets/images/mariah.png",
+      imageUrl: "assets/images/mariah.jpeg",
     },
   },
   {
@@ -95,7 +95,7 @@ const singers = [
     song: {
       songName: "Loser",
       songUrl: "assets/audio/loser.mp3",
-      imageUrl: "assets/images/beck.jpeg",
+      imageUrl: "assets/images/beck.jpg",
     },
   },
 ];
@@ -103,10 +103,8 @@ const singers = [
 let rightAnswers = [];
 let wrongAnswers = [];
 let underscores = [];
-
 let score = 0;
 let remainingGuesses = 10;
-
 let randomIndex = '';
 let singerSelected = '';
 let audio = '';
@@ -122,6 +120,8 @@ let generateUnderscores = () => {
   return underscores;
 };
 
+// start game function that initializes values
+
 let startGame = () => {
   singerSelected;
   remainingGuesses = 10;
@@ -129,16 +129,15 @@ let startGame = () => {
 
   // select random singer name
   randomIndex = Math.floor(Math.random() * singers.length);
-  console.log(randomIndex);
   singerSelected = singers[randomIndex].name.toUpperCase();
-  console.log(singerSelected);
 
   document.getElementById("current-word").innerHTML = generateUnderscores().join(" ");
-  document.getElementById("message").innerHTML = "<h3>" + "Guess a character to start." + "</h4>";
+  document.getElementById("message").innerHTML = "<h3>" + "Type any character to get a hint and start." + "</h4>";
 
   document.getElementById("remaining-guesses").textContent = remainingGuesses;
   document.getElementById("guessed-letters").textContent = wrongAnswers;
   document.getElementById("singer-image").setAttribute("src", 'assets/images/initial-img.jpeg');
+  document.getElementById("song-playing").innerHTML = "";
 
   audioPlayPause();
 
@@ -154,8 +153,6 @@ document.addEventListener("keypress", event => {
     "<h3>" + "Hint: " + singers[randomIndex].hint + "</h4>";
 
   let keyChar = String.fromCharCode(event.keyCode).toUpperCase();
-
-  console.log(singerSelected.indexOf(keyChar) + " " + keyChar);
 
   if (remainingGuesses <= 0) {
     document.getElementById("message").innerHTML = "<h3>" + "Sorry not a right guess!!!" + "</h4> <a href='javascript:;' onclick='startGame()'>Play Again</a>";
@@ -184,6 +181,8 @@ document.addEventListener("keypress", event => {
         .getElementById("singer-image")
         .setAttribute("src", singers[randomIndex].song.imageUrl);
 
+        document.getElementById("song-playing").innerHTML = "Now Playing " + singers[randomIndex].song.songName + " by "+ singers[randomIndex].name;
+
       if(singers[randomIndex].song.songUrl != ''){
         audio.play();
       }else{
@@ -194,11 +193,12 @@ document.addEventListener("keypress", event => {
       wrongAnswers.push(keyChar);
       document.getElementById(
         "remaining-guesses"
-      ).textContent = --remainingGuesses;
+      ).textContent = remainingGuesses--;
       document.getElementById("guessed-letters").innerHTML = wrongAnswers;
   }
 });
 
+// update blank spaces (uderscores) with the right user input
 let updateUnderscores = keyChar => {
   for (var i = 0; i < singerSelected.length; i++) {
     if (keyChar == singerSelected.charAt(i)) {
