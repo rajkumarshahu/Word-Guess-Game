@@ -186,7 +186,7 @@ document.addEventListener("keypress", event => {
       if(singers[randomIndex].song.songUrl != ''){
         audio.play();
       }else{
-        console.log('audio file not found.')
+        document.getElementById("song-playing").innerHTML = "Audio file not found!!!"
       }
     }
   } else if (wrongAnswers.indexOf(keyChar) < 0) {
