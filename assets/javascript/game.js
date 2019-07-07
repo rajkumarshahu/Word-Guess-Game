@@ -26,7 +26,7 @@ const singers = [
     message: "I am Sheryl Suzanne Crow.",
     hint: "An American musician, singer, songwriter, and actress",
     song: {
-      songName: "It don't hurt.",
+      songName: "It don't hurt",
       songUrl: "assets/audio/Sheryl-Crow-It-Dont-Hurt.mp3",
       imageUrl: "assets/images/sheryl.jpeg",
     },
@@ -136,7 +136,7 @@ let startGame = () => {
     "current-word"
   ).innerHTML = generateUnderscores().join(" ");
   document.getElementById("message").innerHTML =
-    "<h3>" + "Type any character to get a hint and start." + "</h4>";
+    "<h3>" + "Type any character to: <br> get a hint and <br>start." + "</h4>";
 
   document.getElementById("remaining-guesses").textContent = remainingGuesses;
   document.getElementById("guessed-letters").textContent = wrongAnswers;
@@ -155,15 +155,15 @@ document.addEventListener("keypress", event => {
   }
 
   document.getElementById("message").innerHTML =
-    "<h3>" + "Hint: " + singers[randomIndex].hint + "</h4>";
+    "Hint:<br><br>" +singers[randomIndex].hint;
 
   let keyChar = String.fromCharCode(event.keyCode).toUpperCase();
 
   if (remainingGuesses <= 0) {
     document.getElementById("message").innerHTML =
       "<h3>" +
-      "Sorry not a right guess!!!" +
-      "</h4> <a href='javascript:;' onclick='startGame()'>Play Again</a>";
+      "Sorry not a right guess!!!</h3><br>" +
+      "</h4> <a href='javascript:;' onclick='startGame()'>Click here to continue playing</a>";
     return false;
   }
 
@@ -179,19 +179,19 @@ document.addEventListener("keypress", event => {
       document.getElementById("wins").innerHTML = ++score;
       document.getElementById("message").innerHTML =
         "<h3>" +
-        "You win!!!" +
+        "You win!!!" + "</h3>"+
         "</h4>" +
         "<h5>" +
         singers[randomIndex].message +
-        "</h5> <a href='javascript:;' onclick='startGame()'>Play Again</a>";
+        "</h5> <a href='javascript:;' onclick='startGame()'>Click here to continue playing</a>";
 
       document
         .getElementById("singer-image")
         .setAttribute("src", singers[randomIndex].song.imageUrl);
 
       document.getElementById("song-playing").innerHTML =
-        "Now Playing " +
-        singers[randomIndex].song.songName +
+        "Now Playing " + "\"" +
+        singers[randomIndex].song.songName + "\"" +
         " by " +
         singers[randomIndex].name;
 
@@ -206,7 +206,7 @@ document.addEventListener("keypress", event => {
     wrongAnswers.push(keyChar);
     document.getElementById(
       "remaining-guesses"
-    ).textContent = remainingGuesses--;
+    ).textContent = --remainingGuesses;
     document.getElementById("guessed-letters").innerHTML = wrongAnswers;
   }
 });
